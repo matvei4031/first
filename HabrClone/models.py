@@ -1,8 +1,10 @@
-from HabrClone import db
+from HabrClone import db, login
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, index=True)
     email = db.Column(db.String(120), unique=True,)
@@ -13,6 +15,12 @@ class User(db.Model):
     def __repr__(self):
         return f'Пользователь:{self.username}, email {self.email}'
 
+    def set_password(self, user_pass):
+        self.password = generate_password_hash(user_pass)
+
+    def check_password(self, user_pass):
+        return check_password_hash(self.password(user_pass))
+
 
 class New(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +30,9 @@ class New(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
+@login.user_loader
+def load_user(id):
+    return  User.query.get(int(id))
 
 
 

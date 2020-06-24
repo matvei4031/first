@@ -1,17 +1,16 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ValidationError, EqualTo
 from flask_login import current_user
-
 from HabrClone.models import User
 
 
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Имя пользователя',validators=[DataRequired()])
-    password = PasswordField('Пароль',validators=[DataRequired()])
+    username = StringField('Имя пользователя', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
 
@@ -31,3 +30,20 @@ class AccountUpdateForm(FlaskForm):
             if user is not None:
                 raise ValidationError('Используйте другой Email!')
 
+
+class RegistrationForm(FlaskForm):
+    username = StringField(validators=[DataRequired()])
+    email = StringField(validators=[DataRequired()])
+    password = StringField(validators=[DataRequired()])
+    password2 = StringField(validators=[DataRequired(), EqualTo(password)])
+    submit = SubmitField('Регистрация')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Используйте другое имя')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Используйте другой Емэил')

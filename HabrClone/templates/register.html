@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="column">
+            {{ form.username(class='form-control, placeholder='Имя Пользователя') }}
+            {% for error in form..errors %}
+                <div class="alert-danger">
+                    {{ error }}
+                </div>
+            {% endfor%}
+        </div>
+        <div class="column">
+            {{ form.email(class='form-control, placeholder='Email') }}
+            {% for error in form..errors %}
+                <div class="alert-danger">
+                    {{ error }}
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            {{ form.password(class='form-control, placeholder='Пароль') }}
+            {% for error in form.password.errors %}
+                <div class="alert-danger">
+                    {{ error }}
+                </div>
+            {% endfor%}
+        </div>
+        <div class="column">
+            {{ form.password2(class='form-control, placeholder='Пароль(Ещё раз') }}
+            {% for error in form.password.errors %}
+                <div class="alert-danger">
+                    {{ error }}
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            {{ form.submit(class="btn btn-success" }}
+        </div>
+    </div>
+</form>
+{% endblock %}
