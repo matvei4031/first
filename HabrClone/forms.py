@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, ValidationError, EqualTo
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
 from flask_login import current_user
 from HabrClone.models import User
 
@@ -35,15 +35,22 @@ class RegistrationForm(FlaskForm):
     username = StringField(validators=[DataRequired()])
     email = StringField(validators=[DataRequired()])
     password = StringField(validators=[DataRequired()])
-    password2 = StringField(validators=[DataRequired(), EqualTo(password)])
+    password2 = StringField(validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Регистрация')
+
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Используйте другое имя')
 
+
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Используйте другой Емэил')
+
+
+class NewsForm(FlaskForm):
+    body = TextAreaField('Текст новости', validators=[DataRequired(), Length(min=1, max=200)])
+    submit = SubmitField('Отправить')
