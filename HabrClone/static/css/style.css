@@ -3,12 +3,16 @@ body {
     color: #333333;
 }
 
+.badge-secondary {
+    color: #fff;
+}
+
 .content-section {
-  background: #ffffff;
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin-bottom: 20px;
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
 }
 
 .navbar {
@@ -52,8 +56,8 @@ a.dark {
   margin-bottom: 1em;
 }
 
-.new{
-    margin-bottom: 1.5 em;
+.new {
+    margin-bottom: 1.5em;
 }
 
 .card-header{
