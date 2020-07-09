@@ -51,6 +51,26 @@
     </div>
 </form>
     <hr>
+    {% if current_user.id == 9 %}
+    {% for zvonok in zvonki %}
+
+<div class="card new">
+    <div class="card-header bg-warning">
+        Обращение от:{{ zvonok.author.username }}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>{{ zvonok.text }}</p>
+            <p>{{ zvonok.phone }}</p>
+        </blockquote>
+    </div>
+</div>
+    {% endfor %}
+    {% endif %}
+
+
+    <hr>
+
     {% for new in news %}
 
 <div class="card new">
