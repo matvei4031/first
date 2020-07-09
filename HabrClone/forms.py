@@ -1,11 +1,10 @@
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
-from flask_login import current_user
+
 from HabrClone.models import User
-
-
 
 
 class LoginForm(FlaskForm):
@@ -57,6 +56,6 @@ class NewsForm(FlaskForm):
 
 
 class ZvonokForm(FlaskForm):
-    phone = StringField('Ваш номер телефона', validators=[DataRequired(), Length(9, 11)])
-    body = TextAreaField('Текст новости', validators=[DataRequired(), Length(min=1, max=200)])
+    phone = StringField('Ваш номер телефона:', validators=[DataRequired(), Length(9, 11)])
+    body = TextAreaField('Текст новости:', validators=[DataRequired(), Length(min=1, max=200)])
     submit = SubmitField('Отправить')
