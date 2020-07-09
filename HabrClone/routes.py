@@ -1,14 +1,16 @@
+import os
+
+from PIL import Image
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
-from PIL import Image
+
 from HabrClone import App, db
 from HabrClone.forms import LoginForm, RegistrationForm, AccountUpdateForm, NewsForm, ZvonokForm
 from HabrClone.models import User, New, Zvonok
-import os
 
 
 @App.route('/', methods=['GET', 'POST'])
-@App.route('/index')
+@App.route('/index', methods=['GET', 'POST'])
 def index():
     form = ZvonokForm()
     if form.validate_on_submit():
@@ -18,7 +20,6 @@ def index():
 
         flash('Обращение отправлено!', 'success')
         return redirect(url_for('index'))
-
     return render_template('index.html', form=form)
 
 

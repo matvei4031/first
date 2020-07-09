@@ -8,19 +8,20 @@
     {% endif %}
     <hr>
     {% if current_user.is_authenticated %}
-    <h3 class="text-center">Задайте вопрос или внесите предложение администратору сайта.</h3>
-    <form method="post">
-        {{ form.hidden_tag() }}
+        <h3 class="text-center">Задайте вопрос или внесите предложение администратору сайта.</h3>
+
+        <form method="post" novalidate>
+            {{ form.hidden_tag() }}
         <div class="form-group">
 
             {{ form.phone.label }}
             {{ form.phone(class='form-control') }}
-            <small id="emailHelp" class="form-text text-muted">В формате +375 хх ххх хх хх или 29 ххх хх хх.</small>
+            <small class="form-text text-muted">В формате +375 хх ххх хх хх или 29 ххх хх хх.</small>
 
         </div>
-        <div class="form-group">
+            <div class="form-group">
 
-            {{ form.body.label }}
+                {{ form.body.label }}
             {{ form.body(class='form-control', cols=32, rows=6) }}
 
             {% for error in form.body.errors %}
@@ -30,7 +31,7 @@
         {{ form.submit(class='btn btn-info') }}
     </form>
     {% else %}
-    <p>bla bla</p>
+        <p>blah-blah</p>
     {% endif %}
 </section>
 {% endblock %}
