@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn HabrClone: App
+web: flask db upgrade; gunicorn HabrClone:App
